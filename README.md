@@ -2,6 +2,8 @@
 
 Codolio is a professional, React-based application designed to streamline your Data Structures and Algorithms (DSA) preparation. Built with a focus on usability and aesthetics, it helps you track progress through Striver's A2Z DSA Sheet (and custom lists) in a clean, distraction-free environment.
 
+[**Live Demo**](https://codolio-qms.vercel.app/)
+
 ## Key Features
 
 ### Smart Progress Tracking
