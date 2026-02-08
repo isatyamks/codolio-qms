@@ -450,7 +450,7 @@ export const useStore = create(
                                         url: validateUrl(questionData.url),
                                         isSolved: false,
                                         order: s.questions.length,
-                                        notes: '',
+                                        notes: sanitizeString(questionData.notes),
                                     }]
                                 }
                             })
@@ -479,6 +479,7 @@ export const useStore = create(
                                             ...(questionData.title && { title: sanitizeString(questionData.title) }),
                                             ...(questionData.difficulty && { difficulty: validateDifficulty(questionData.difficulty) }),
                                             ...(questionData.url !== undefined && { url: validateUrl(questionData.url) }),
+                                            ...(questionData.notes !== undefined && { notes: sanitizeString(questionData.notes) }),
                                         }
                                     })
                                 }

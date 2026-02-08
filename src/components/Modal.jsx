@@ -54,9 +54,10 @@ function getInitialFormData(type, data) {
                 title: data?.question?.title || '',
                 difficulty: data?.question?.difficulty || DIFFICULTY_LEVELS.MEDIUM,
                 url: data?.question?.url || '',
+                notes: data?.question?.notes || '',
             }
         case MODAL_TYPES.ADD_QUESTION:
-            return { title: '', difficulty: DIFFICULTY_LEVELS.MEDIUM, url: '' }
+            return { title: '', difficulty: DIFFICULTY_LEVELS.MEDIUM, url: '', notes: '' }
         default:
             return { name: '' }
     }
@@ -215,6 +216,18 @@ function QuestionForm({ formData, setFormData }) {
                     placeholder="https://leetcode.com/problems/..."
                 />
             </div>
+            <div>
+                <label htmlFor="question-notes" className="block text-sm font-medium text-gray-300 mb-1.5">
+                    Notes
+                </label>
+                <textarea
+                    id="question-notes"
+                    value={formData.notes || ''}
+                    onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
+                    className="w-full px-4 py-2.5 bg-[#252525] border border-[#333] rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-[#6366f1] focus:ring-1 focus:ring-[#6366f1] transition-colors resize-y min-h-[100px]"
+                    placeholder="Add your notes, approach, or key learnings..."
+                />
+            </div>
         </div>
     )
 }
@@ -252,8 +265,8 @@ function FormActions({ isDelete, onCancel }) {
             <button
                 type="submit"
                 className={`px-5 py-2 rounded-lg font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-[#1a1a1a] ${isDelete
-                        ? 'bg-[#ef4444] hover:bg-red-600 text-white focus:ring-red-500'
-                        : 'bg-[#6366f1] hover:bg-indigo-600 text-white focus:ring-indigo-500'
+                    ? 'bg-[#ef4444] hover:bg-red-600 text-white focus:ring-red-500'
+                    : 'bg-[#6366f1] hover:bg-indigo-600 text-white focus:ring-indigo-500'
                     }`}
             >
                 {isDelete ? 'Delete' : 'Save'}
@@ -368,6 +381,7 @@ function Modal({ modalState, closeModal }) {
                         title: formData.title.trim(),
                         difficulty: formData.difficulty,
                         url: formData.url?.trim() || '',
+                        notes: formData.notes?.trim() || '',
                     })
                     closeModal()
                 }
@@ -378,6 +392,7 @@ function Modal({ modalState, closeModal }) {
                         title: formData.title.trim(),
                         difficulty: formData.difficulty,
                         url: formData.url?.trim() || '',
+                        notes: formData.notes?.trim() || '',
                     })
                     closeModal()
                 }
