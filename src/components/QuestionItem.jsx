@@ -71,6 +71,7 @@ function DragHandleIcon({ className }) {
 
 function QuestionItem({ question, topicId, subtopicId, openModal }) {
     const toggleQuestionSolved = useStore(state => state.toggleQuestionSolved)
+    const toggleQuestionStarred = useStore(state => state.toggleQuestionStarred)
     const theme = useStore(state => state.theme)
 
     const {
@@ -219,11 +220,15 @@ function QuestionItem({ question, topicId, subtopicId, openModal }) {
                 {/* Star Icon - Fixed width */}
                 <div className="w-12 flex-shrink-0 flex justify-center">
                     <button
-                        className="text-gray-500 hover:text-[#f59e0b] transition-colors"
-                        title="Add to favorites"
-                        aria-label="Add to favorites"
+                        onClick={(e) => {
+                            e.stopPropagation()
+                            toggleQuestionStarred(question.id)
+                        }}
+                        className={`${question.isStarred ? 'text-[#f59e0b]' : 'text-gray-500'} hover:text-[#f59e0b] transition-colors`}
+                        title={question.isStarred ? "Remove from favorites" : "Add to favorites"}
+                        aria-label={question.isStarred ? "Remove from favorites" : "Add to favorites"}
                     >
-                        <StarIcon className="w-5 h-5" />
+                        <StarIcon className={`w-5 h-5 ${question.isStarred ? 'fill-current' : ''}`} />
                     </button>
                 </div>
 

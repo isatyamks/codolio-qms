@@ -167,6 +167,7 @@ function transformSheetData(rawData) {
             resource: sanitizeString(q.resource),
             tags: Array.isArray(q.questionId?.topics) ? q.questionId.topics : [],
             isSolved: Boolean(q.isSolved),
+            isStarred: Boolean(q.isStarred),
             order: subtopic.questions.length,
             notes: '',
         })
@@ -296,6 +297,21 @@ export const useStore = create(
                         ...subtopic,
                         questions: subtopic.questions.map(q =>
                             q.id === questionId ? { ...q, isSolved: !q.isSolved } : q
+                        )
+                    }))
+                }))
+                set({ topics: newTopics })
+            },
+
+            toggleQuestionStarred: (questionId) => {
+                if (!questionId) return
+                const { topics } = get()
+                const newTopics = topics.map(topic => ({
+                    ...topic,
+                    subtopics: topic.subtopics.map(subtopic => ({
+                        ...subtopic,
+                        questions: subtopic.questions.map(q =>
+                            q.id === questionId ? { ...q, isStarred: !q.isStarred } : q
                         )
                     }))
                 }))
